@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
 from .widgets import Widget
+import os
 
 API_VERSION_NUMBER = '1.0'
 API_VERSION_LABEL = 'v1'
@@ -39,7 +40,7 @@ class FlaskApp(object):
 
     def run(self, *args, **kwargs):
         self.app.config['PROPAGATE_EXCEPTIONS'] = False
-        self.app.run(port=8080, *args, **kwargs)
+        self.app.run(host='0.0.0.0', port=os.environ.get('PORT'), *args, **kwargs)
 
 
 def run_app(*args, **kwargs):

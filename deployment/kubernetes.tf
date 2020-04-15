@@ -50,7 +50,7 @@ resource "kubernetes_deployment" "main" {
 
           port {
             name           = "http"
-            container_port = 8080
+            container_port = random_integer.port.result
             protocol       = "TCP"
           }
 
@@ -73,7 +73,7 @@ resource "kubernetes_deployment" "main" {
           liveness_probe {
             http_get {
               path = "/health-check"
-              port = 8080
+              port = random_integer.port.result
             }
 
             initial_delay_seconds = 10
