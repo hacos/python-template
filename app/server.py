@@ -8,8 +8,11 @@ class FlaskApp(object):
 
     def __init__(self):
         self.app = Flask(__name__)
-
         widget = Widget()
+
+        @self.app.route('/health-check', methods=['GET'])
+        def healthCheck():
+            return 'OK'
 
         @self.app.route('/v1/widgets', methods=['GET', 'POST'])
         def widgetsFunction():
@@ -17,7 +20,6 @@ class FlaskApp(object):
                 return widget.get_widgets()
             elif request.method == 'POST':
                 return widget.create_widget(request.get_json())
-
 
         @self.app.route('/v1/widgets/<string:name>', methods=['GET', 'PUT', 'DELETE'])
         def widgetFunctionName(name):
@@ -29,7 +31,6 @@ class FlaskApp(object):
 
             elif request.method == 'DELETE':
                 return widget.delete_widget(name)
-
 
         @self.app.route('/v1/widgets/purge', methods=['POST'])
         def widgetPurge():

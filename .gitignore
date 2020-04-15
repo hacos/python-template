@@ -130,3 +130,7 @@ dmypy.json
 
 # Database
 app/db/*
+
+# Terraform
+**/.terraform/plugins/*
+**/.terraform/environment
